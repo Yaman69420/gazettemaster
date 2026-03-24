@@ -27,6 +27,7 @@ class UpdatePostRequest extends FormRequest
             'title' => $title,
             'slug' => $slug !== '' ? Str::slug($slug) : Str::slug($title),
             'is_published' => $isPublished,
+            'is_featured' => $this->boolean('is_featured'),
             'categories' => $this->input('categories', []),
             'published_at' => $isPublished
                 ? ($publishedAt ?: now())
@@ -53,6 +54,8 @@ class UpdatePostRequest extends FormRequest
 
             'is_published' => ['required', 'boolean'],
             'published_at' => ['nullable', 'date'],
+
+            'is_featured' => ['required', 'boolean'],
 
             'categories' => ['nullable', 'array'],
             'categories.*' => ['integer', Rule::exists('categories', 'id')],
