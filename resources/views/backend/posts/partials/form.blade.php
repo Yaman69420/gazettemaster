@@ -73,6 +73,24 @@
         @enderror
     </div>
 
+    {{-- ========================= FEATURED ========================= --}}
+    <div class="col-12 col-md-3">
+        <label class="form-label d-block">Featured</label>
+        <div class="form-check mt-2">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                name="is_featured"
+                id="is_featured"
+                value="1"
+                @checked(old('is_featured', $post?->is_featured ?? false))
+            >
+            <label class="form-check-label" for="is_featured">
+                Toon op de homepagina
+            </label>
+        </div>
+    </div>
+
     {{-- ========================= PUBLISHED AT ========================= --}}
     <div class="col-12 col-md-3">
         <label class="form-label">Published at</label>

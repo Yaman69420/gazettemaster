@@ -180,6 +180,9 @@
                                     <span class="badge bg-secondary">draft</span>
                                 @endif
 
+                                @if($post->is_featured)
+                                    <span class="badge bg-warning text-dark">featured</span>
+                                @endif
                             </td>
 
                             <td>{{ optional($post->published_at)->format('Y-m-d H:i') ?? '-' }}</td>
