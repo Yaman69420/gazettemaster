@@ -164,6 +164,8 @@ class PostController extends Controller
                 ->route('backend.posts.edit', $post)
                 ->with('success', "Post '{$post->title}' updated successfully.");
         } catch (Throwable $e) {
+            report($e);
+
             return back()
                 ->withInput()
                 ->with('error', 'Post could not be updated. Please try again.');

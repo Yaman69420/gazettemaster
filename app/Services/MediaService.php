@@ -19,6 +19,8 @@ class MediaService
         $filename = $file->hashName();
         $path = $directory ? $directory.'/'.$filename : $filename;
 
+        ini_set('memory_limit', '256M');
+
         $image = Image::read($file->getPathname());
         $image->scaleDown(width: 1280);
 
