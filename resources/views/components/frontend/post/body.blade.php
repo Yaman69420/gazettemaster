@@ -21,13 +21,12 @@
                 <h1 class="mb-3">{{ $post->title }}</h1>
 
                 {{-- Meta: auteur en datum --}}
-                <div class="d-flex align-items-center gap-3 mb-4 text-muted">
+                <div class="mb-4 text-muted">
                     @if($post->user)
                         <span>Door <strong>{{ $post->user->name }}</strong></span>
+                        <span> · </span>
                     @endif
-                    <span>
-                        {{ optional($post->published_at)->format('d M Y') ?? $post->created_at->format('d M Y') }}
-                    </span>
+                    <span>{{ optional($post->published_at)->format('d M Y') ?? $post->created_at->format('d M Y') }}</span>
                 </div>
 
                 {{-- Afbeelding --}}

@@ -21,11 +21,9 @@
                         <div class="blog-content">
                             <div class="post-meta d-flex align-items-center mb-2">
                                 @foreach($post->categories as $category)
-                                    <a href="{{ route('frontend.categories.show', $category) }}" class="me-2">
-                                        {{ $category->name }}
-                                    </a>
+                                    <a href="{{ route('frontend.categories.show', $category) }}">{{ $category->name }}</a>{{ !$loop->last ? ' · ' : '' }}
                                 @endforeach
-                                <span class="text-muted ms-auto">
+                                <span style="margin-left: auto;">
                                     {{ optional($post->published_at)->format('M d, Y') ?? $post->created_at->format('M d, Y') }}
                                 </span>
                             </div>
