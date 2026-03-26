@@ -1,117 +1,120 @@
-````md
-# Laravel Project Clonen & Opstarten
+# GazetteMaster
 
-## Repository clonen
+Laravel CMS met publieke frontend gebouwd op het Gazette HTML-thema.
+
+---
+
+## Vereisten
+
+- PHP 8.4
+- MySQL 8.0
+- Node.js + npm
+- Composer
+- MAMP (of een andere lokale server)
+
+---
+
+## Installatie
+
+### 1. Clone de repository
 
 ```bash
-git clone https://github.com/USERNAME/PROJECTNAAM.git
-cd PROJECTNAAM
-````
+git clone https://github.com/Yaman69420/gazettemaster.git
+cd gazettemaster
+```
 
-## Dependencies installeren
+### 2. Installeer dependencies
 
 ```bash
 composer install
-```
-
-Indien frontend assets aanwezig zijn:
-
-```bash
 npm install
-npm run dev
 ```
 
-## Environment file instellen (PHPStorm)
-
-Kopieer in PHPStorm het bestand `.env.example` en hernoem dit naar `.env`.
-
-## App key genereren
+### 3. Omgevingsbestand aanmaken
 
 ```bash
+cp .env.example .env
 php artisan key:generate
 ```
 
-## Database configureren
+### 4. Database instellen
 
-Pas je `.env` bestand aan:
+Maak een lege database aan (bijv. `dblaravelclone`) en pas `.env` aan:
 
 ```env
-DB_DATABASE=naam_van_database
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dblaravelclone
 DB_USERNAME=root
-DB_PASSWORD=
+DB_PASSWORD=root
 ```
 
-## Migraties uitvoeren
+### 5. Database importeren
 
+Importeer de meegeleverde dump met alle data (artikels, gebruikers, categorieën):
+
+**Via phpMyAdmin:**
+1. Open phpMyAdmin
+2. Selecteer de database
+3. Klik op "Importeren" en selecteer `database/database.sql`
+
+**Via de terminal:**
 ```bash
-php artisan migrate
+mysql -u root -p dblaravelclone < database/database.sql
 ```
 
-Eventueel met seeders:
-
-```bash
-php artisan migrate --seed
-```
-
-## Storage linken (belangrijk)
+### 6. Storage koppelen
 
 ```bash
 php artisan storage:link
 ```
 
-Zorgt ervoor dat uploads (zoals afbeeldingen) zichtbaar zijn via `/storage`.
+### 7. Frontend assets bouwen
 
-## Server starten
+```bash
+npm run build
+```
+
+### 8. Applicatie starten
 
 ```bash
 php artisan serve
+php artisan queue:listen --tries=1
 ```
 
-Ga naar: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+De site is bereikbaar op `http://localhost:8000`
 
-## Queue verwerken (optioneel)
+---
 
-```bash
-php artisan queue:work
-```
+## Inloggegevens
 
-## Cache clearen bij problemen (optioneel)
+Na het importeren van de database kan je inloggen via `/login`:
+
+| Rol   | E-mail                    | Wachtwoord |
+|-------|---------------------------|------------|
+| Admin | syntraprogrammeurs@gmail.com | password   |
+
+> Wachtwoord te wijzigen via het profiel na het inloggen.
+
+---
+
+## Overzicht pagina's
+
+| URL                    | Beschrijving                        |
+|------------------------|-------------------------------------|
+| `/`                    | Homepage met featured posts         |
+| `/posts`               | Alle artikels met zoekfunctie       |
+| `/posts/{slug}`        | Post detailpagina                   |
+| `/categories/{slug}`   | Categoriepagina                     |
+| `/contact`             | Contactformulier                    |
+| `/backend/dashboard`   | Backend (inloggen vereist)          |
+
+---
+
+## Cache clearen bij problemen
 
 ```bash
 php artisan config:clear
 php artisan cache:clear
 php artisan view:clear
 ```
-
-## Veelvoorkomende problemen
-
-### Afbeeldingen worden niet getoond
-
-Controleer of `php artisan storage:link` werd uitgevoerd.
-
-### .env wijzigingen werken niet
-
-```bash
-php artisan config:clear
-```
-
-### Composer fouten
-
-```bash
-php -v
-```
-
-## Vereisten
-
-* PHP >= 8.x
-* Composer
-* Node.js + npm
-* MySQL of MariaDB
-
-## Klaar
-
-Het project zou nu correct moeten draaien.
-
-```
-```
-# gazettemaster
