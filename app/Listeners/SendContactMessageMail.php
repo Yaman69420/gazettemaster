@@ -10,7 +10,7 @@ class SendContactMessageMail
 {
     public function handle(ContactMessageSent $event): void
     {
-        Notification::route('mail', 'syntraprogrammeurs@gmail.com')
+        Notification::route('mail', 'yaman.terkawi.yt@gmail.com')
             ->notify(new ContactMessageNotification($event->data));
     }
 }

@@ -45,6 +45,14 @@
                 </a>
             @endcan
 
+            <a class="nav-link {{ request()->routeIs('backend.contact-messages.*') ? 'active' : '' }}"
+               href="{{ route('backend.contact-messages.index') }}">
+                <div class="sb-nav-link-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                Berichten
+            </a>
+
             <div class="sb-sidenav-menu-heading">Administration</div>
 
             @can('viewAny', \App\Models\User::class)

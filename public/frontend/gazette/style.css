@@ -9,3 +9,50 @@
     ---------------------------------------------------------- */
 
     /* ============ PLACE YOUR CUSTOM CSS HERE ============ */
+
+    /* Hover: post titels rood kleuren */
+    .main-content-wrapper .gazette-welcome-post h2 a:hover,
+    .main-content-wrapper .gazette-welcome-post h3 a:hover,
+    .main-content-wrapper .gazette-welcome-post h4 a:hover,
+    .main-content-wrapper .gazette-welcome-post h5 a:hover,
+    .main-content-wrapper .gazette-welcome-post h6 a:hover,
+    .single-post-contents .gazette-welcome-post h2 a:hover,
+    .single-post-contents .gazette-welcome-post h5 a:hover {
+        color: #ff0303 !important;
+    }
+
+    /* Hover: afbeelding iets donkerder */
+    .gazette-welcome-post .blog-post-thumbnail img {
+        transition: opacity 300ms ease;
+    }
+
+    .gazette-welcome-post .blog-post-thumbnail img:hover {
+        opacity: 0.82;
+    }
+
+    /* Post-continue-btn ook voor button elementen */
+    .post-continue-btn button {
+        height: 54px;
+        border: 1px solid #1e1e1e;
+        background: transparent;
+        display: inline-block;
+        padding: 0 20px;
+        line-height: 52px;
+        color: #1e1e1e;
+        text-transform: uppercase;
+        cursor: pointer;
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        letter-spacing: 1px;
+        transition: all 500ms ease;
+    }
+
+    .post-continue-btn button:hover {
+        border-color: #ff0303;
+        color: #ff0303;
+    }
+
+    /* Hover: sidebar categorieën */
+    .sidebar-widget-area ul li a:hover {
+        color: #ff0303 !important;
+    }

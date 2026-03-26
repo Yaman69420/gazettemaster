@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ContactMessageSent;
 use App\Http\Requests\ContactFormRequest;
+use App\Models\ContactMessage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -14,14 +15,16 @@ class ContactController extends Controller
         return view('frontend.contact');
     }
 
-    public function store(ContactFormRequest $request): RedirectResponse
+    public function send(ContactFormRequest $request): RedirectResponse
     {
         $data = $request->validated();
+
+        ContactMessage::create($data);
 
         ContactMessageSent::dispatch($data);
 
         return redirect()
-            ->route('frontend.contact')
+            ->route('contact')
             ->with('status', 'Bericht succesvol verzonden.');
     }
 }

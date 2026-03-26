@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\ContactMessageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Frontend\FrontendCategoryController;
@@ -54,6 +55,9 @@ Route::middleware([
 
     // Media
     Route::resource('media', MediaController::class)->only(['index', 'store', 'destroy']);
+
+    // Contact berichten
+    Route::resource('contact-messages', ContactMessageController::class)->only(['index', 'show']);
 
     // Users & Roles (Admin/Editor only)
     Route::resource('users', UserController::class);

@@ -116,7 +116,7 @@
                             <td class="text-end">
                                 <div class="d-inline-flex gap-1">
 
-                                    <a href="{{ route('backend.categories.show', $category) }}" class="btn btn-sm btn-outline-primary">
+                                    <a href="{{ route('backend.categories.edit', $category) }}" class="btn btn-sm btn-outline-primary">
                                         Show
                                     </a>
 

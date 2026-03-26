@@ -10,9 +10,15 @@ class FrontendCategoryController extends Controller
 {
     public function show(Category $category): View
     {
+        $posts = $category->posts()
+            ->where('is_published', true)
+            ->with(['media', 'categories', 'user'])
+            ->latest('published_at')
+            ->paginate(12);
+
         return view('frontend.categories.show', [
             'category' => $category,
-            'posts' => collect(),
+            'posts' => $posts,
         ]);
     }
 }

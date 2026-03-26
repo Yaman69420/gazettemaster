@@ -1,24 +1,17 @@
-````md
 # Laravel Project Clonen & Opstarten
 
 ## Repository clonen
 
 ```bash
-git clone https://github.com/USERNAME/PROJECTNAAM.git
-cd PROJECTNAAM
-````
+git clone https://github.com/Yaman69420/gazettemaster.git
+cd gazettemaster
+```
 
 ## Dependencies installeren
 
 ```bash
 composer install
-```
-
-Indien frontend assets aanwezig zijn:
-
-```bash
 npm install
-npm run dev
 ```
 
 ## Environment file instellen (PHPStorm)
@@ -36,22 +29,28 @@ php artisan key:generate
 Pas je `.env` bestand aan:
 
 ```env
-DB_DATABASE=naam_van_database
+DB_DATABASE=dblaravelclone
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-## Migraties uitvoeren
+## Database importeren
 
+Er is een database dump aanwezig in `database/database.sql` met alle data (artikels, gebruikers, categorieën, media).
+
+**Via phpMyAdmin:**
+1. Maak een nieuwe database aan met de naam uit je `.env`
+2. Klik op "Importeren" en selecteer `database/database.sql`
+
+**Via de terminal:**
 ```bash
-php artisan migrate
+mysql -u root -p dblaravelclone < database/database.sql
 ```
 
-Eventueel met seeders:
-
-```bash
-php artisan migrate --seed
-```
+> Je kan ook migreren zonder data:
+> ```bash
+> php artisan migrate
+> ```
 
 ## Storage linken (belangrijk)
 
@@ -64,16 +63,12 @@ Zorgt ervoor dat uploads (zoals afbeeldingen) zichtbaar zijn via `/storage`.
 ## Server starten
 
 ```bash
-php artisan serve
+composer run dev
 ```
 
 Ga naar: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-## Queue verwerken (optioneel)
-
-```bash
-php artisan queue:work
-```
+> Dit start tegelijk de webserver, queue worker en Vite dev server op.
 
 ## Cache clearen bij problemen (optioneel)
 
@@ -101,9 +96,16 @@ php artisan config:clear
 php -v
 ```
 
+### `composer run dev` werkt niet
+
+```bash
+npm install
+composer run dev
+```
+
 ## Vereisten
 
-* PHP >= 8.x
+* PHP >= 8.4
 * Composer
 * Node.js + npm
 * MySQL of MariaDB
@@ -111,7 +113,3 @@ php -v
 ## Klaar
 
 Het project zou nu correct moeten draaien.
-
-```
-```
-# gazettemaster

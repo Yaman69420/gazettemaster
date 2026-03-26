@@ -5,23 +5,26 @@ namespace App\Services;
 use App\Models\Media;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class MediaService
 {
-
-
     /**
      * Upload een nieuwe afbeelding en koppel deze aan een model
      */
-    public function upload($model, UploadedFile $file, string $directory = null): Media
+    public function upload($model, UploadedFile $file, ?string $directory = null): Media
     {
         $disk = 'public';
 
-        $path = $file->store($directory, $disk);
+        $filename = $file->hashName();
+        $path = $directory ? $directory.'/'.$filename : $filename;
 
-        $filename = basename($path);
+        ini_set('memory_limit', '256M');
 
-        $directory = dirname($path) === '.' ? null : dirname($path);
+        $image = Image::read($file->getPathname());
+        $image->scaleDown(width: 1280);
+
+        Storage::disk($disk)->put($path, $image->toJpeg(quality: 85));
 
         $media = new Media([
             'disk' => $disk,
@@ -39,7 +42,7 @@ class MediaService
     /**
      * Vervang een bestaande afbeelding
      */
-    public function replace($model, UploadedFile $file, string $directory = null): Media
+    public function replace($model, UploadedFile $file, ?string $directory = null): Media
     {
         if ($model->media) {
             $this->deleteFile($model->media);

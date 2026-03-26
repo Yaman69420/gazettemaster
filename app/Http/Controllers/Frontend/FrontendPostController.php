@@ -11,14 +11,28 @@ class FrontendPostController extends Controller
 {
     public function index(Request $request): View
     {
+        $search = $request->string('q')->trim()->toString();
+
+        $posts = Post::query()
+            ->where('is_published', true)
+            ->search($search)
+            ->with(['media', 'categories', 'user'])
+            ->latest('published_at')
+            ->paginate(12)
+            ->withQueryString();
+
         return view('frontend.posts.index', [
-            'posts' => collect(),
-            'search' => '',
+            'posts' => $posts,
+            'search' => $search,
         ]);
     }
 
     public function show(Post $post): View
     {
+        abort_if(! $post->is_published, 404);
+
+        $post->load(['media', 'categories', 'user']);
+
         return view('frontend.posts.show', [
             'post' => $post,
         ]);

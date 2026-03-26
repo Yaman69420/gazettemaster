@@ -6,18 +6,18 @@
     <div class="simple-marquee-container">
         <div class="marquee">
             <ul class="marquee-content-items">
-                <li>
-                    <a href="#">
-                        <span class="latest-news-time">{{ now()->format('H:i') }}</span>
-                        Nieuws item placeholder
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="latest-news-time">{{ now()->format('H:i') }}</span>
-                        Nog een nieuws item
-                    </a>
-                </li>
+                @forelse($latestPosts as $post)
+                    <li>
+                        <a href="{{ route('frontend.posts.show', $post) }}">
+                            <span class="latest-news-time">
+                                {{ optional($post->published_at)->format('H:i') ?? $post->created_at->format('H:i') }}
+                            </span>
+                            {{ $post->title }}
+                        </a>
+                    </li>
+                @empty
+                    <li><a href="#">Geen nieuws beschikbaar</a></li>
+                @endforelse
             </ul>
         </div>
     </div>
