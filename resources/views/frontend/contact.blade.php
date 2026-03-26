@@ -1,38 +1,53 @@
 <x-frontend.shell title="Contact">
-    <div class="container" style="padding: 60px 15px;">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <h1 class="mb-4">Contact</h1>
-                <p class="lead mb-4">Vul het formulier in en we nemen zo snel mogelijk contact met je op.</p>
+    <section class="single-post-contents section_padding_100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-7">
 
-                @if(session('status'))
-                    <div class="alert alert-success">{{ session('status') }}</div>
-                @endif
+                    <h2 class="mb-3">Contact</h2>
+                    <p class="mb-4" style="color: #888;">Vul het formulier in en we nemen zo snel mogelijk contact met je op.</p>
 
-                <form action="{{ route('contact.send') }}" method="POST">
-                    @csrf
+                    @if(session('status'))
+                        <div style="background:#d4edda; color:#155724; border:1px solid #c3e6cb; padding:12px 16px; border-radius:4px; margin-bottom:20px;">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Naam</label>
-                        <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror">
-                        @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
+                    <form action="{{ route('contact.send') }}" method="POST">
+                        @csrf
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror">
-                        @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display:block; font-weight:600; margin-bottom:6px;">Naam</label>
+                            <input type="text" name="name" value="{{ old('name') }}"
+                                style="width:100%; padding:10px 14px; border:1px solid {{ $errors->has('name') ? '#dc3545' : '#ddd' }}; border-radius:4px; font-size:15px;">
+                            @error('name')
+                                <span style="color:#dc3545; font-size:13px;">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Bericht</label>
-                        <textarea name="message" id="message" rows="6" class="form-control @error('message') is-invalid @enderror">{{ old('message') }}</textarea>
-                        @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display:block; font-weight:600; margin-bottom:6px;">E-mail</label>
+                            <input type="email" name="email" value="{{ old('email') }}"
+                                style="width:100%; padding:10px 14px; border:1px solid {{ $errors->has('email') ? '#dc3545' : '#ddd' }}; border-radius:4px; font-size:15px;">
+                            @error('email')
+                                <span style="color:#dc3545; font-size:13px;">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                    <button type="submit" class="btn btn-primary">Verzenden</button>
-                </form>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display:block; font-weight:600; margin-bottom:6px;">Bericht</label>
+                            <textarea name="message" rows="6"
+                                style="width:100%; padding:10px 14px; border:1px solid {{ $errors->has('message') ? '#dc3545' : '#ddd' }}; border-radius:4px; font-size:15px; resize:vertical;">{{ old('message') }}</textarea>
+                            @error('message')
+                                <span style="color:#dc3545; font-size:13px;">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn gazette-btn">Verzenden</button>
+                    </form>
+
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </x-frontend.shell>

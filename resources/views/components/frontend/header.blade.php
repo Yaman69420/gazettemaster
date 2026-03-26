@@ -69,7 +69,7 @@
 
                 <div class="col-12 col-md-8">
                     <div class="header-advert-area">
-                        <a href="#">
+                        <a href="{{ route('contact') }}">
                             <img src="{{ asset('frontend/gazette/img/bg-img/top-advert.png') }}" alt="advertentie">
                         </a>
                     </div>
