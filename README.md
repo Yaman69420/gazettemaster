@@ -11,13 +11,7 @@ cd gazettemaster
 
 ```bash
 composer install
-```
-
-Indien frontend assets aanwezig zijn:
-
-```bash
 npm install
-npm run build
 ```
 
 ## Environment file instellen (PHPStorm)
@@ -37,7 +31,7 @@ Pas je `.env` bestand aan:
 ```env
 DB_DATABASE=dblaravelclone
 DB_USERNAME=root
-DB_PASSWORD=root
+DB_PASSWORD=
 ```
 
 ## Database importeren
@@ -69,22 +63,12 @@ Zorgt ervoor dat uploads (zoals afbeeldingen) zichtbaar zijn via `/storage`.
 ## Server starten
 
 ```bash
-php artisan serve
+composer run dev
 ```
 
 Ga naar: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-## Queue verwerken (voor contactformulier)
-
-```bash
-php artisan queue:listen --tries=1
-```
-
-## Inloggegevens
-
-| E-mail                        | Wachtwoord |
-|-------------------------------|------------|
-| syntraprogrammeurs@gmail.com  | password   |
+> Dit start tegelijk de webserver, queue worker en Vite dev server op.
 
 ## Cache clearen bij problemen (optioneel)
 
@@ -110,6 +94,13 @@ php artisan config:clear
 
 ```bash
 php -v
+```
+
+### `composer run dev` werkt niet
+
+```bash
+npm install
+composer run dev
 ```
 
 ## Vereisten
