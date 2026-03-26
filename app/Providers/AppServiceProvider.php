@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Post;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -29,6 +31,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        View::composer('components.frontend.header', function ($view): void {
+            $view->with('breakingNewsPosts', Post::query()
+                ->where('is_published', true)
+                ->latest('published_at')
+                ->limit(5)
+                ->get());
+        });
+
         Gate::define('view-backend-dashboard', function (User $user): bool {
             return in_array($user->role?->name, ['admin', 'editor'], true);
         });

@@ -7,27 +7,23 @@
 
                 {{-- Categorieën --}}
                 @if($post->categories->isNotEmpty())
-                    <div class="mb-3">
+                    <div class="gazette-post-tag mb-3">
                         @foreach($post->categories as $category)
-                            <a href="{{ route('frontend.categories.show', $category) }}"
-                               class="badge bg-primary text-decoration-none me-1">
-                                {{ $category->name }}
-                            </a>
+                            <a href="{{ route('frontend.categories.show', $category) }}">{{ $category->name }}</a>
                         @endforeach
                     </div>
                 @endif
 
                 {{-- Titel --}}
-                <h1 class="mb-3">{{ $post->title }}</h1>
+                <h1 class="font-pt mb-3">{{ $post->title }}</h1>
 
                 {{-- Meta: auteur en datum --}}
-                <div class="mb-4 text-muted">
+                <span class="gazette-post-date mb-4 d-block">
                     @if($post->user)
-                        <span>Door <strong>{{ $post->user->name }}</strong></span>
-                        <span> · </span>
+                        Door <strong>{{ $post->user->name }}</strong> ·
                     @endif
-                    <span>{{ optional($post->published_at)->format('d M Y') ?? $post->created_at->format('d M Y') }}</span>
-                </div>
+                    {{ optional($post->published_at)->format('d M Y') ?? $post->created_at->format('d M Y') }}
+                </span>
 
                 {{-- Afbeelding --}}
                 @if($post->media)
@@ -40,7 +36,7 @@
 
                 {{-- Excerpt --}}
                 @if($post->excerpt)
-                    <p class="lead mb-4">{{ $post->excerpt }}</p>
+                    <p class="gazette-welcome-post mb-4" style="font-size: 18px; font-weight: 300;">{{ $post->excerpt }}</p>
                 @endif
 
                 {{-- Inhoud --}}
@@ -50,9 +46,11 @@
 
                 {{-- Terug naar overzicht --}}
                 <div class="mt-5">
-                    <a href="{{ route('frontend.posts.index') }}" class="btn btn-outline-secondary">
-                        &larr; Alle artikels
-                    </a>
+                    <div class="post-continue-btn">
+                        <a href="{{ route('frontend.posts.index') }}">
+                            &larr; Alle artikels
+                        </a>
+                    </div>
                 </div>
 
             </div>

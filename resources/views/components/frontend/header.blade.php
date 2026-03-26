@@ -7,9 +7,15 @@
                         <h5 class="breaking-news-title">Breaking news</h5>
                         <div id="breakingNewsTicker" class="ticker">
                             <ul>
-                                <li><a href="#">Welkom op onze Laravel blogfrontend.</a></li>
-                                <li><a href="#">We zetten de Gazette homepagina stap voor stap om.</a></li>
-                                <li><a href="#">Nieuwe artikels verschijnen hier automatisch.</a></li>
+                                @forelse($breakingNewsPosts ?? collect() as $post)
+                                    <li>
+                                        <a href="{{ route('frontend.posts.show', $post) }}">
+                                            {{ $post->title }}
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li><a href="#">Geen nieuws beschikbaar</a></li>
+                                @endforelse
                             </ul>
                         </div>
                     </div>

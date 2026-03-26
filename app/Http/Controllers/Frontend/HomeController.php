@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\View\View;
 
@@ -37,9 +38,16 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
+        $categories = Category::query()
+            ->withCount(['posts' => fn ($q) => $q->where('is_published', true)])
+            ->having('posts_count', '>', 0)
+            ->orderByDesc('posts_count')
+            ->get();
+
         return view('frontend.home', [
             'sliderPosts' => $featuredPosts,
             'latestPosts' => $latestPosts,
+            'categories' => $categories,
         ]);
     }
 }

@@ -3,57 +3,56 @@
         <div class="container">
 
             {{-- Zoekresultaten header --}}
-            @if($search)
-                <div class="mb-4">
+            <div class="gazette-heading mb-50">
+                @if($search)
                     <h4>Zoekresultaten voor: <em>"{{ $search }}"</em></h4>
-                    <p class="text-muted">{{ $posts->total() }} {{ $posts->total() === 1 ? 'artikel' : 'artikels' }} gevonden</p>
-                </div>
-            @else
-                <div class="mb-4">
+                    <p class="gazette-post-date">{{ $posts->total() }} {{ $posts->total() === 1 ? 'artikel' : 'artikels' }} gevonden</p>
+                @else
                     <h4>Alle artikels</h4>
-                </div>
-            @endif
+                @endif
+            </div>
 
             <div class="row">
                 @forelse($posts as $post)
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="single-blog-post">
+                    <div class="col-12 col-md-6 col-lg-4 mb-50">
+                        <div class="gazette-welcome-post">
 
                             @if($post->media)
-                                <div class="blog-thumbnail mb-2">
+                                <div class="blog-post-thumbnail mb-30">
                                     <a href="{{ route('frontend.posts.show', $post) }}">
-                                        <img src="{{ $post->media->url() }}" alt="{{ $post->title }}" class="img-fluid">
+                                        <img src="{{ $post->media->url() }}" alt="{{ $post->title }}"
+                                             class="img-fluid w-100" style="max-height: 200px; object-fit: cover;">
                                     </a>
                                 </div>
                             @endif
 
-                            <div class="blog-content">
-                                <div class="post-meta d-flex align-items-center mb-2">
+                            <div class="welcome-post-contents">
+                                <div class="gazette-post-tag">
                                     @foreach($post->categories as $category)
-                                        <a href="{{ route('frontend.categories.show', $category) }}">{{ $category->name }}</a>{{ !$loop->last ? ' · ' : '' }}
+                                        <a href="{{ route('frontend.categories.show', $category) }}">{{ $category->name }}</a>
                                     @endforeach
-                                    <span style="margin-left: auto;">
-                                        {{ optional($post->published_at)->format('M d, Y') ?? $post->created_at->format('M d, Y') }}
-                                    </span>
                                 </div>
 
                                 <h5>
                                     <a href="{{ route('frontend.posts.show', $post) }}">{{ $post->title }}</a>
                                 </h5>
 
-                                @if($post->excerpt)
-                                    <p class="text-muted">{{ Str::limit($post->excerpt, 120) }}</p>
-                                @endif
+                                <span class="gazette-post-date">
+                                    {{ optional($post->published_at)->format('M d, Y') ?? $post->created_at->format('M d, Y') }}
+                                    @if($post->user)
+                                        · {{ $post->user->name }}
+                                    @endif
+                                </span>
 
-                                @if($post->user)
-                                    <small class="text-muted">Door {{ $post->user->name }}</small>
+                                @if($post->excerpt)
+                                    <p>{{ Str::limit($post->excerpt, 120) }}</p>
                                 @endif
                             </div>
                         </div>
                     </div>
                 @empty
                     <div class="col-12">
-                        <p class="text-muted">
+                        <p class="gazette-post-date">
                             @if($search)
                                 Geen artikels gevonden voor "{{ $search }}".
                             @else
@@ -64,7 +63,6 @@
                 @endforelse
             </div>
 
-            {{-- Paginatie --}}
             @if($posts->hasPages())
                 <div class="d-flex justify-content-center mt-4">
                     {{ $posts->links() }}

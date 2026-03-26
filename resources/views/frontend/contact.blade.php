@@ -43,7 +43,9 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn gazette-btn">Verzenden</button>
+                        <div class="post-continue-btn">
+                            <button type="submit">Verzenden</button>
+                        </div>
                     </form>
 
                 </div>
